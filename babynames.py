@@ -45,9 +45,9 @@ def extract_names(filename):
   with open(filename) as f:
   	data = f.read()
   	match = re.search(r'Popularity in (\d\d\d\d)', data)
-  	
-  return match.group(1)
+  	rank_names = re.findall(r'<td>(\d+)</td><td>(\w+)</td><td>(\w+)</td>', data)
 
+  return match.group(1), rank_names
 
 def main():
   # This command-line parsing code is provided.
@@ -69,7 +69,10 @@ def main():
   # For each filename, get the names, then either print the text output
   # or write it to a summary file
   for file in args:
-  	print(extract_names(file))
+  	tup = extract_names(file)
+  	print(tup[0]) # year
+  	for item in tup[1]:
+  		print(item[0], item[1], item[2]) # rank and two names
   
 if __name__ == '__main__':
   main()
