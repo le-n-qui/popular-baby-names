@@ -48,7 +48,7 @@ def extract_names(filename):
   	rank_names = re.findall(r'<td>(\d+)</td><td>(\w+)</td><td>(\w+)</td>', data)
 
   # Create a new dictionary to contain baby names
-  # key is rank, value is a tuple of boy and girl names
+  # key is name, value is rank
   babyname_dict = {}
   for rank, boyname, girlname in rank_names: # data in 3 variables are of str type
 
@@ -58,7 +58,15 @@ def extract_names(filename):
   	if not babyname_dict.get(girlname, None) or int(babyname_dict[girlname]) > int(rank):
   		babyname_dict[girlname] = rank
 
-  return match.group(1), babyname_dict
+  # Create an empty list for storing data
+  # Format: [year, 'name rank', ...]
+  # Use list expression
+  list_result = [match.group(1)] # it contains the year as the first element
+  name_list = [ name+" "+rank for name, rank in babyname_dict.items()]
+  name_list.sort()
+  list_result.extend(name_list)
+  
+  return list_result
 
 def main():
   # This command-line parsing code is provided.
@@ -81,11 +89,10 @@ def main():
   # or write it to a summary file
   
   for file in args:
+  	# extract_names method now returns a list
+  	print(extract_names(file))
   	
-  	tup = extract_names(file)
-  	print(tup[0]) # year
-  	for k, v in tup[1].items():
-  		print(k, v)
+  	
   
 if __name__ == '__main__':
   main()
