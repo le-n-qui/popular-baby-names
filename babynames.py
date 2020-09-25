@@ -68,11 +68,18 @@ def main():
   # +++your code here+++
   # For each filename, get the names, then either print the text output
   # or write it to a summary file
+  
+
   for file in args:
+  	# Create a new dictionary to contain baby names
+  	# key is rank, value is a tuple of boy and girl names
+  	babyname_dict = {}
   	tup = extract_names(file)
   	print(tup[0]) # year
   	for item in tup[1]:
-  		print(item[0], item[1], item[2]) # rank and two names
+  		# Populate dictionary
+  		babyname_dict[item[0]] = item[1], item[2] 
+  	print(babyname_dict)
   
 if __name__ == '__main__':
   main()
