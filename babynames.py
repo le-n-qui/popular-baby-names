@@ -50,8 +50,13 @@ def extract_names(filename):
   # Create a new dictionary to contain baby names
   # key is rank, value is a tuple of boy and girl names
   babyname_dict = {}
-  for rank, boyname, girlname in rank_names:
-  	babyname_dict[rank] = boyname, girlname
+  for rank, boyname, girlname in rank_names: # data in 3 variables are of str type
+
+  	if not babyname_dict.get(boyname, None) or int(babyname_dict[boyname]) > int(rank):
+  		babyname_dict[boyname] = rank
+  
+  	if not babyname_dict.get(girlname, None) or int(babyname_dict[girlname]) > int(rank):
+  		babyname_dict[girlname] = rank
 
   return match.group(1), babyname_dict
 
@@ -79,7 +84,8 @@ def main():
   	
   	tup = extract_names(file)
   	print(tup[0]) # year
-  	print(tup[1]) # dict
+  	for k, v in tup[1].items():
+  		print(k, v)
   
 if __name__ == '__main__':
   main()
