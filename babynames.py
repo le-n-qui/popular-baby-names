@@ -87,12 +87,21 @@ def main():
   # +++your code here+++
   # For each filename, get the names, then either print the text output
   # or write it to a summary file
-  
-  for file in args:
-  	# extract_names method now returns a list
-  	my_list = extract_names(file)
-  	text = '\n'.join(my_list) + '\n'
-  	print(text)
+  if summary == False:
+
+    for file in args:
+  	  # extract_names method now returns a list
+  	  my_list = extract_names(file)
+  	  text = '\n'.join(my_list) + '\n'
+  	  print(text)
+
+  else:
+    for file in args:
+    	summary_file = file+".summary"
+    	with open(summary_file, "w") as f:
+  	  	my_list = extract_names(file)
+  	  	text = '\n'.join(my_list) + "\n"
+  	  	print(text, file=f)
   	
   	
   
