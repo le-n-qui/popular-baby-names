@@ -90,7 +90,9 @@ def main():
   
   for file in args:
   	# extract_names method now returns a list
-  	print(extract_names(file))
+  	my_list = extract_names(file)
+  	text = '\n'.join(my_list) + '\n'
+  	print(text)
   	
   	
   
